@@ -20,5 +20,4 @@ Once your configuration is done, you are good to go !
 
 ## Endpoints
 
-Here is a list of the several endpoints at your disposal with a body example:
-
+A swagger is available at the following address : http://localhost:8080/swagger-ui/index.html
