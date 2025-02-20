@@ -7,7 +7,7 @@ These purchases are stored in an embedded H2 database.
 Here is a sample of the operations that can be performed:
  - Creating a new purchase
  - Making a purchase status progress, from IN_PROGRESS to AUTHORIZED to CAPTURED
- - Changing your payment method, as long as your payment has not been authorized yet
+ - Changing your payment method, as long as your purchase has not been authorized yet
  - Fetching a single purchase
  - Fetching every purchase stored
 
