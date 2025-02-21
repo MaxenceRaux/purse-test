@@ -11,22 +11,18 @@ import com.maxenceraux.purse_test.model.*;
 import com.maxenceraux.purse_test.service.PurchaseService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.convert.ConversionService;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @WebFluxTest(PurchaseController.class)
@@ -52,7 +48,7 @@ class PurchaseControllerTest {
         var productDTO = new PurchasedProductDTO("name", "ref", 4, BigDecimal.valueOf(3.1));
         var purchaseDTO = new PurchaseDTO(1L, BigDecimal.valueOf(12.4), "EUR", PaymentMethod.CREDIT_CARD, PaymentStatus.IN_PROGRESS, List.of(productDTO));
 
-        when(service.findById(1L)).thenReturn(Mono.just(purchase));
+        when(service.findPurchaseById(1L)).thenReturn(Mono.just(purchase));
 
         webTestClient.get()
                 .uri("/api/purchase/1")
@@ -66,7 +62,7 @@ class PurchaseControllerTest {
     @Test
     @DisplayName("Should return 404 on missing purchase.")
     void shouldReturn404OnMissingPurchase() {
-        when(service.findById(1L)).thenReturn(Mono.error(new MissingPurchaseException(1L)));
+        when(service.findPurchaseById(1L)).thenReturn(Mono.error(new MissingPurchaseException(1L)));
 
         webTestClient.get()
                 .uri("/api/purchase/1")

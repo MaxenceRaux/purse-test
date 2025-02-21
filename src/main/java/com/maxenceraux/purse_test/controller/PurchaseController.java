@@ -53,7 +53,7 @@ public class PurchaseController {
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public Mono<PurchaseDTO> findById(@PathVariable("id") Long id) {
-		return purchaseService.findById(id)
+		return purchaseService.findPurchaseById(id)
 				.map(purchase -> conversionService.convert(purchase, PurchaseDTO.class));
 	}
 

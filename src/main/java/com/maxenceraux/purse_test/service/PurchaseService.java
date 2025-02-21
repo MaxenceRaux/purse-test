@@ -26,10 +26,10 @@ public class PurchaseService {
 						.map(purchase::withPurchasedProducts));
 	}
 	
-	public Mono<Purchase> findById(Long id) {
+	public Mono<Purchase> findPurchaseById(Long purchaseId) {
 		return Mono.zip(
-				purchaseRepository.findById(id),
-				purchasedProductRepository.findAllByPurchaseId(id).collectList(),
+				purchaseRepository.findById(purchaseId),
+				purchasedProductRepository.findAllByPurchaseId(purchaseId).collectList(),
                 Purchase::withPurchasedProducts);
 	}
 	
@@ -45,9 +45,9 @@ public class PurchaseService {
 				});
 	}
 
-	public Mono<Purchase> updateStatus(Long id, PaymentStatus status) {
-		return findById(id)
-				.switchIfEmpty(Mono.error(new MissingPurchaseException(id)))
+	public Mono<Purchase> updateStatus(Long purchaseId, PaymentStatus status) {
+		return findPurchaseById(purchaseId)
+				.switchIfEmpty(Mono.error(new MissingPurchaseException(purchaseId)))
 				.map(purchase -> {
 					purchase.updateStatus(status);
 					return purchase;
@@ -55,9 +55,9 @@ public class PurchaseService {
 				.flatMap(purchaseRepository::save);
 	}
 
-	public Mono<Purchase> changePaymentMethod(Long id, PaymentMethod paymentMethod) {
-		return findById(id)
-				.switchIfEmpty(Mono.error(new MissingPurchaseException(id)))
+	public Mono<Purchase> changePaymentMethod(Long purchaseId, PaymentMethod paymentMethod) {
+		return findPurchaseById(purchaseId)
+				.switchIfEmpty(Mono.error(new MissingPurchaseException(purchaseId)))
 				.map(purchase -> {
 					purchase.updatePaymentMethod(paymentMethod);
 					return purchase;

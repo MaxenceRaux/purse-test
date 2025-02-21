@@ -106,7 +106,7 @@ class PurchaseServiceTest {
         var expectedProduct = PurchaseFactory.buildProductWithId(3L, "name3", "ref3", 4, BigDecimal.valueOf(3.1), 2L);
         var expectedPurchase = PurchaseFactory.buildPurchaseWithId(2L, BigDecimal.valueOf(12.4), List.of(expectedProduct));
 
-        StepVerifier.withVirtualTime(() -> service.findById(2L))
+        StepVerifier.withVirtualTime(() -> service.findPurchaseById(2L))
                 .expectNext(expectedPurchase)
                 .verifyComplete();
     }

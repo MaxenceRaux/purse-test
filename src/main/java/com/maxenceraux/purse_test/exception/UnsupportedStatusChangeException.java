@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UnsupportedStatusChangeException extends RuntimeException {
 
-    private PaymentStatus baseStatus;
-    private PaymentStatus intendedStatus;
+    private final PaymentStatus baseStatus;
+    private final PaymentStatus intendedStatus;
 
     @Override
     public String getMessage() {
